@@ -1,0 +1,2 @@
+MazeDrawer folder contains the executable to visualize the maze drawn by the main program in the ihagverdi_ibrahimli_hagverdi_hw1.cpp (main cpp) file.
+Stack.cpp provides the implementation for the stack class used in the main cpp file.
