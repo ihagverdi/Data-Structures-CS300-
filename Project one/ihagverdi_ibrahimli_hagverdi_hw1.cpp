@@ -12,7 +12,7 @@ program tries to find a solution path for the given maze and writes it into a fi
 #include <sstream>
 #include <fstream>
 #include <string>
-#include "Stack.h"
+#include "Stack.cpp"
 using namespace std;
 
 /*random engine*/
