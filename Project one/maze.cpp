@@ -24,7 +24,7 @@ struct cell {
 	bool is_visited;
 	int walls; 
 	cell() :
-		is_visited(false), walls(15) {};
+		is_visited(false), walls(15) {}; //setting walls parameter to 15 has a binary use (1111) to represent all walls
 
 };
 void getInputs(int& Nrows, int& Ncols, int& Nmazes) {
@@ -32,10 +32,6 @@ void getInputs(int& Nrows, int& Ncols, int& Nmazes) {
 	cin >> Nmazes;
 	cout << "Enter the number of rows and columns (M and N): ";
 	cin >> Nrows >> Ncols;
-}
-
-bool checkBoundaries(int x_coord, int y_coord, int w, int h) {
-	return (x_coord >= 0 && x_coord < w && y_coord >= 0 && y_coord < h);
 }
 
 int randomDirection() {
@@ -155,59 +151,36 @@ void generateMaze(vector<vector<cell>> &maze) {
 			int random_direction = neighbor_cells[randomDirection() % neighbor_cells.size()];
 
 			switch (random_direction) {
-			case 0: // up
-				if (checkBoundaries(x_coord, y_coord + 1, width, height)) {
-					pair<int, int> new_pair = make_pair(x_coord, y_coord + 1);
-					cell &new_cell = maze[x_coord][y_coord + 1];
-
-					stack.push(new_pair);
-					new_cell.is_visited = true;
-					new_cell.walls &= ~2;  // break the down wall of the upper cell
+				case 0: // up
+					stack.push(make_pair(x_coord, y_coord + 1));
+					maze[x_coord][y_coord + 1].is_visited = true;
+					maze[x_coord][y_coord + 1].walls &= ~2;  // break the down wall of the upper cell
 					maze[x_coord][y_coord].walls &= ~8; //break the upper wall of the current cell
-
-				}
-				break;
-			case 1: // right
-				if (checkBoundaries(x_coord + 1, y_coord, width, height)) {
-					pair<int, int> new_pair = make_pair(x_coord + 1, y_coord);
-					cell &new_cell = maze[x_coord+1][y_coord];
-
-					stack.push(new_pair);
-					new_cell.is_visited = true;
-					new_cell.walls &= ~1; // break the left wall of the new cell
+					break;
+				case 1: // right
+					stack.push(make_pair(x_coord + 1, y_coord));
+					maze[x_coord + 1][y_coord].is_visited = true;
+					maze[x_coord + 1][y_coord].walls &= ~1; // break the left wall of the new cell
 					maze[x_coord][y_coord].walls &= ~4; //break the right wall of the current cell
-				}
-				break;
-			case 2: // down
-				if (checkBoundaries(x_coord, y_coord - 1, width, height)) {
-					pair<int, int> new_pair = make_pair(x_coord, y_coord-1);
-					cell &new_cell = maze[x_coord][y_coord-1];
-
-					stack.push(new_pair);
-					new_cell.is_visited = true;
-					new_cell.walls &= ~8; // break the upper wall of the new cell
+					break;
+				case 2: // down
+					stack.push(make_pair(x_coord, y_coord - 1));
+					maze[x_coord][y_coord - 1].is_visited = true;
+					maze[x_coord][y_coord - 1].walls &= ~8; // break the upper wall of the new cell
 					maze[x_coord][y_coord].walls &= ~2; //break the down wall of the current cell
-				}
-				break;
-			case 3: // left
-				if (checkBoundaries(x_coord - 1, y_coord, width, height)) {
-					pair<int, int> new_pair = make_pair(x_coord-1, y_coord);
-					cell &new_cell = maze[x_coord-1][y_coord];
-
-					stack.push(new_pair);
-					new_cell.is_visited = true;
-					new_cell.walls &= ~4; // break the right wall of the new cell
+					break;
+				case 3: // left
+					stack.push(make_pair(x_coord - 1, y_coord));
+					maze[x_coord - 1][y_coord].is_visited = true;
+					maze[x_coord - 1][y_coord].walls &= ~4; // break the right wall of the new cell
 					maze[x_coord][y_coord].walls &= ~1; //break the left wall of the current cell
-				}
-				break;
-
+					break;
 			}
 			num_visited++;
 		}
 		else {
 			stack.pop(); //backtracking
 		}
-
 	}
 }
 
