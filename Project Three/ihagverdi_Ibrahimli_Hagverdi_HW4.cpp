@@ -480,9 +480,11 @@ void prompt(BinarySearchTree<Contact>& BST, HashTable& HashTable) {
 			else
 				cout << "Contact is not added. Duplicate exists in the HashTable." << endl;
 			cout << endl << endl;
-			cout << "Adding a contact to the Binary Tree took " << BSTTime.count() / 1000000.0  << endl;
-			cout << "Adding a contact to the HashTable took " << HTTime.count() / 1000000.0  << endl;
-			cout << endl << endl;
+			if(success) {
+				cout << "Adding a contact to the Binary Tree took " << BSTTime.count() / 1000000.0  << endl;
+				cout << "Adding a contact to the HashTable took " << HTTime.count() / 1000000.0  << endl;
+				cout << endl << endl;
+			}
 			break;
 		}
 		case 3: {
